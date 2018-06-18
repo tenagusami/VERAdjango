@@ -1,0 +1,10 @@
+from django.urls import path
+
+from . import views
+
+app_name = 'vlbi_schedule'
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('dispatch/', views.dispatch, name='dispatch'),
+    path('<int:year>/<int:doy>/result/', views.result, name='result'),
+]

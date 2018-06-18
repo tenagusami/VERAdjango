@@ -1,0 +1,41 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'vlbi_schedule/style.css' %}" />
+
+<h1>VERA小笠原局</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% if form.date.errors %}in {{form.date.label}}:{{ form.date.errors }}{% endif %}
+
+
+<form action="{% url 'vlbi_schedule:dispatch' %}" method="post">
+  {% csrf_token %}
+  {{form.date.label}}:{{form.date}} (YYYY-MM-DD or YYYY-DOY)<br>
+  <input type="submit" value="Query" />
+  <table border="1" width="500">
+    <tr align="center">
+      <td colspan="5" bgcolor="lightgray">観測運用</td>
+    </tr>
+    　<tr>
+      　　<th>観測</th>
+      　　<th>ターゲット</th>
+      <th>バンド</th>
+      <th>PI</th>
+      <th>局対応・備考</th>
+      　</tr>
+    
+    {% for observation in observation_list %}
+    　<tr align="center">
+      　　<td>{{observation.observation_ID}}</td>
+      　　<td>{{observation.description}}</td>
+      <td>{{observation.band}}</td>
+      <td>{{observation.PI_name}}</td>
+      <td>{{observation.comment}}</td>
+      　</tr>
+    {% empty %}
+    <tr align="center"><td>　</td><td></td><td></td><td></td><td></td></tr>
+    {% endfor %}
+  </table>
+</form>
+</html>
+

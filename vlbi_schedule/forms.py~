@@ -1,0 +1,27 @@
+from django import forms
+import datetime as d
+from vlbi import utility as u
+
+
+def get_current_doy():
+    now = u.get_now()
+    return now.toordinal() - d.date(now.year, 1, 1) + 1
+
+
+class ReportForm(forms.Form):
+    year = forms.IntegerField(
+        label='Year',
+        required=True,
+        initial=u.get_now().year,
+        widget=forms.TextInput(),
+        min_value=2001,
+        max_value=u.get_now().year,
+    )
+    doy = forms.IntegerField(
+        label='Day of Year',
+        required=True,
+        initial=get_current_doy(),
+        widget=forms.TextInput(),
+        min_value=1,
+        max_value=366,
+    )

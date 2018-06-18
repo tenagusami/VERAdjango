@@ -1,0 +1,13 @@
+h1{
+    color: blue;
+}
+
+table{
+    border-collapse:collapse;
+    font-family: Takao P明朝;
+    font-size: 10.5px;
+}
+
+th{
+    font-weight: normal;
+}
