@@ -74,20 +74,25 @@ WSGI_APPLICATION = 'VERAdjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
+
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 # }
+
+import my_settings.settings as my
+
+local_settings = my.sql_host()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'observation',  # DB名を設定
-        'USER': 'ykanya',  # DBへ接続するユーザIDを設定
-        'PASSWORD': 'Apollo13',  # DBへ接続するユーザIDのパスワードを設定
-        'HOST': '133.40.44.182',
-        'PORT': '3306',
+        'NAME': local_settings.name,  # DB名を設定
+        'USER': local_settings.user,  # DBへ接続するユーザIDを設定
+        'PASSWORD': local_settings.password,  # DBへ接続するユーザIDのパスワードを設定
+        'HOST': local_settings.host,
+        'PORT': local_settings.port,
         'OPTIONS': {
             # 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
